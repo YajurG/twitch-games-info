@@ -61,14 +61,3 @@ getAccessToken(process.env.GET_TOKEN, (res) => {
     access_token = res.data.access_token;
     return access_token;
 })
-
-/*setTimeout(() => {
-  getGames(process.env.GET_GAMES, (res) => {
-      data = res.body.data;
-      for (i = 0; i < data.length; i++) {
-          games.push(data[i]);
-          console.log(data[i].name);
-      }
-      return games;
-  }, access_token)
-}, 1000)*/
