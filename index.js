@@ -45,12 +45,6 @@ const getGames = (url, callback, token) => {
     }).catch((err) => {
         console.log(err);
     })
-    /*request.get(options, (err, res) => {
-      if (err) {
-        console.log(err);
-      }
-      callback(res);
-    })*/
 }
 
 const getGamesCallback = (res) => {
