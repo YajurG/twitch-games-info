@@ -1,5 +1,4 @@
 require('dotenv').config();
-const request = require('request');
 const axios = require('axios');
 
 var access_token = "HELLO";
