@@ -22,7 +22,7 @@ const axios = require('axios');
     })
 }
 
-exports.getGames = (url, callback, token) => {
+exports.getGames = (url, token, callback) => {
     const options = {
         url: url,
         json: true,
@@ -40,9 +40,16 @@ exports.getGames = (url, callback, token) => {
           "Authorization": "Bearer " + token
         }
     }).then((response) => {
-        callback(response);
+        data = response.data.data;
+        let games = [];
+        for (i = 0; i < data.length; i++) {
+            games.push(data[i]);
+        }
+        let gamesResult = {games: games};
+        callback(null, gamesResult)
     }).catch((err) => {
         console.log(err);
+        callback(err, null);
     })
 }
 
@@ -54,10 +61,4 @@ exports.getGamesCallback = (res) => {
         console.log(data[i]);
     }
     return games;
-}
-
-exports.getTokenCallback = (res) => {
-    console.log(res.data.access_token)
-    let access_token = res.data.access_token;
-    return access_token;
 }
