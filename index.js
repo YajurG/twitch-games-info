@@ -1,10 +1,8 @@
 require('dotenv').config();
 const axios = require('axios');
 
-var access_token = "HELLO";
-var games = [];
 
-const getAccessToken = (url, callback) => {
+  exports.getAccessToken = (url, callback) => {
 
     const options = {
         client_id: process.env.CLIENT_ID,
@@ -13,16 +11,18 @@ const getAccessToken = (url, callback) => {
     }
     axios.post('https://id.twitch.tv/oauth2/token?client_id='+options.client_id+'&client_secret='+options.client_secret+'&grant_type=client_credentials')
     .then((response) =>{
-        console.log(response.data);
-        callback(response)
-        getGames(process.env.GET_GAMES, getGamesCallback, access_token)
+        console.log(response.data.access_token)
+        let access_token = {token: response.data.access_token}
+        callback(null, access_token);
+        //exports.getGames(process.env.GET_GAMES, exports.getGamesCallback, access_token)
     })
     .catch((err) => {
         console.log(err);
+        callback(err, null);
     })
 }
 
-const getGames = (url, callback, token) => {
+exports.getGames = (url, callback, token) => {
     const options = {
         url: url,
         json: true,
@@ -46,8 +46,9 @@ const getGames = (url, callback, token) => {
     })
 }
 
-const getGamesCallback = (res) => {
+exports.getGamesCallback = (res) => {
     data = res.data.data;
+    let games = [];
     for (i = 0; i < data.length; i++) {
         games.push(data[i]);
         console.log(data[i]);
@@ -55,8 +56,8 @@ const getGamesCallback = (res) => {
     return games;
 }
 
-getAccessToken(process.env.GET_TOKEN, (res) => {
+exports.getTokenCallback = (res) => {
     console.log(res.data.access_token)
-    access_token = res.data.access_token;
+    let access_token = res.data.access_token;
     return access_token;
-})
+}
