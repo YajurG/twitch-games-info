@@ -1,5 +1,5 @@
-require('dotenv').config();
-const axios = require('axios');
+  require('dotenv').config();
+  const axios = require('axios');
 
 
   exports.getAccessToken = (url, callback) => {
@@ -9,9 +9,10 @@ const axios = require('axios');
         client_secret: process.env.CLIENT_SECRET,
         grant_type: "client_credentials"
     }
-    axios.post('https://id.twitch.tv/oauth2/token?client_id='+options.client_id+'&client_secret='+options.client_secret+'&grant_type=client_credentials')
+    axios.post('https://id.twitch.tv/oauth2/token', {}, {params: options})
     .then((response) =>{
         console.log(response.data.access_token)
+        process.env['TOKEN'] = response.data.access_token;
         let access_token = {token: response.data.access_token}
         callback(null, access_token);
         //exports.getGames(process.env.GET_GAMES, exports.getGamesCallback, access_token)
@@ -22,7 +23,7 @@ const axios = require('axios');
     })
 }
 
-exports.getGames = (url, token, callback) => {
+  exports.getGamesInfo = (url, token, callback) => {
     const options = {
         url: url,
         json: true,
@@ -51,9 +52,36 @@ exports.getGames = (url, token, callback) => {
         console.log(err);
         callback(err, null);
     })
-}
+  }
+  exports.getStreams = (url, game_id) => {
+      options = {
+        game_id: game_id,
+        first: 5
+      }
+      let token = "";
+      exports.getAccessToken(process.env.GET_TOKEN, (err, result) => {
+        if (err){
+          console.log(err);
+        } else {
+          token = result.token;
+          axios.get(url, {
+            headers: {
+              'Client-ID': process.env.CLIENT_ID,
+              "Authorization": "Bearer " + token
+            }
+          }, {params: options}).then((response) => {
+              console.log(response.data);
+          }).catch((err) => {
+              console.log(err);
+          })
+        }
+      })
 
-exports.getGamesCallback = (res) => {
+  }
+
+  exports.getStreams(process.env.GET_STREAMS, "512710");
+
+  exports.getGamesCallback = (res) => {
     data = res.data.data;
     let games = [];
     for (i = 0; i < data.length; i++) {
@@ -61,4 +89,4 @@ exports.getGamesCallback = (res) => {
         console.log(data[i]);
     }
     return games;
-}
+  }
