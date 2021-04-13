@@ -68,8 +68,9 @@
             headers: {
               'Client-ID': process.env.CLIENT_ID,
               "Authorization": "Bearer " + token
-            }
-          }, {params: options}).then((response) => {
+            },
+            params: options
+          }).then((response) => {
               console.log(response.data);
           }).catch((err) => {
               console.log(err);
