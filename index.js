@@ -53,17 +53,17 @@
         callback(err, null);
     })
   }
-  exports.getStreams = (url, game_id) => {
+  exports.getStreams = (url, game_id, token, callback) => {
       options = {
         game_id: game_id,
         first: 5
       }
-      let token = "";
+      /*let token = "";
       exports.getAccessToken(process.env.GET_TOKEN, (err, result) => {
         if (err){
           console.log(err);
-        } else {
-          token = result.token;
+        } else {*/
+          //token = result.token;
           axios.get(url, {
             headers: {
               'Client-ID': process.env.CLIENT_ID,
@@ -71,16 +71,20 @@
             },
             params: options
           }).then((response) => {
-              console.log(response.data);
+            data = response.data.data;
+            let streams = [];
+            for (i = 0; i < data.length; i++) {
+                streams.push(data[i]);
+            }
+            let streamsResult = {streams: streams};
+            callback(null, streamsResult)
           }).catch((err) => {
               console.log(err);
+              callback(err, null);
           })
-        }
-      })
-
+        //}
+      //})
   }
-
-  exports.getStreams(process.env.GET_STREAMS, "512710");
 
   exports.getGamesCallback = (res) => {
     data = res.data.data;

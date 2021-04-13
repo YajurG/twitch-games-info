@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
 
 app.get("/games", data.getGames)
 
+app.get("/streams", data.getStreams)
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 })
