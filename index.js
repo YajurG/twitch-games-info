@@ -11,9 +11,8 @@
     }
     axios.post('https://id.twitch.tv/oauth2/token', {}, {params: options})
     .then((response) =>{
-        console.log(response.data.access_token)
-        process.env['TOKEN'] = response.data.access_token;
-        let access_token = {token: response.data.access_token}
+        let access_token = {token: response.data.access_token,
+                            expires_in: response.data.expires_in}
         callback(null, access_token);
         //exports.getGames(process.env.GET_GAMES, exports.getGamesCallback, access_token)
     })
@@ -21,7 +20,7 @@
         console.log(err);
         callback(err, null);
     })
-}
+  }
 
   exports.getGamesInfo = (url, token, callback) => {
     const options = {
