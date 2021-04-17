@@ -52,10 +52,11 @@
         callback(err, null);
     })
   }
-  exports.getStreams = (url, game_id, token, callback) => {
+  exports.getStreams = (url, game_id, token, n, callback) => {
+      n = parseInt(n);
       options = {
         game_id: game_id,
-        first: 5
+        first: n
       }
       /*let token = "";
       exports.getAccessToken(process.env.GET_TOKEN, (err, result) => {

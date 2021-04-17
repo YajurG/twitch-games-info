@@ -46,7 +46,7 @@ exports.getStreams = (req, res) => {
           message: "Some error occurred while retrieving token."
         });
       } else {
-        let streams = Index.getStreams(process.env.GET_STREAMS, req.params.gameId, result.token,
+        let streams = Index.getStreams(process.env.GET_STREAMS, req.params.gameId, result.token, req.params.numOfStreams,
           (err, result) => {
             if (err){
               res.status(500).send({
