@@ -12,17 +12,7 @@ class App extends Component {
     }
   }
 
-  getTopGames = () => {
-      axios.get("http://localhost:8080/games")
-      .then((response) => {
-        let games = response.games;
-        let update = {};
-        games.forEach((item) => {
-          update[item.name] = item.id;
-        });
-        this.setState({topGames: update});
-      })
-  }
+  
   render() {
     return (
       <div className="App">
