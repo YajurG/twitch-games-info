@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
   res.json({message: "Welcome."});
 })
 
-app.get("/token", data.getToken)
+app.post("/api/token", data.getToken)
 
 app.get("/games", data.getGames)
 
