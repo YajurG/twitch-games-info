@@ -25,8 +25,4 @@ const Navigation = () => {
     )
 }
 
-const searchGames = (text) => {
-    axios.get("http://localhost:8080/games")
-}
-
 export default Navigation;

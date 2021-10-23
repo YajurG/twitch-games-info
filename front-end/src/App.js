@@ -6,34 +6,43 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
 
+  const [expiryString, setExpiryString] = useState();
+
   useEffect(() => {
-    async function getTwitchToken() {
+    const getTwitchToken = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/token`);
-        if (res.status != 200) {
+        const response = await axios.post("http://localhost:8080/api/token");
+        console.log(response)
+        if (response.status != 200) {
           console.log("token access denied")
           return;
         }
         try {
-          localStorage.setItem("twitchToken", JSON.stringify(response.token));
+          await localStorage.setItem("twitchToken", JSON.stringify(response.data.token));
           let expiry_date = new Date();
-          expiry_date.setSeconds(expiry_date.getSeconds + parseInt(response.expires_in));
-          localStorage.setItem("twitchTokenExpiry", expiry_date.toString());
+          expiry_date.setSeconds(expiry_date.getSeconds() + parseInt(response.data.expires_in));
+          await localStorage.setItem("twitchTokenExpiry", expiry_date.toString());
         } catch (err) {
           console.log(err.message);
         }
       } catch (err) {
         console.log(err.message);
       }
+      console.log(localStorage);
     }
-    let expiryString = localStorage.getItem("twitchTokenExpiry");
-    const expiry = new Date(expiryString);
-    const now = new Date();
-    const difference = expiry - now;
-    if (difference > 1800000) { // 30 minutes
-        getTwitchToken();
+    const getExpiryString = async () => {
+       setExpiryString(await localStorage.getItem("twitchTokenExpiry"));
     }
-  }, [])
+    getExpiryString();
+    let date_now = new Date();
+    let date_expires = new Date(expiryString);
+    if (date_expires - date_now < 1800000) { // exp within 30 min
+      getTwitchToken()
+      console.log("retrieved new token XDXD");
+    } else {
+      console.log("token still valid XDXD")
+    }
+  })
 
   
 
@@ -58,3 +67,4 @@ const App = () => {
 }
 
 export default App;
+
