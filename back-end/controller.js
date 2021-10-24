@@ -74,6 +74,7 @@ exports.getStreams = async (req, res) => {
     console.log(err.message);
     res.status(500).send({error: err});
   }
+}
   
   exports.getStreamsByGame = async (req, res) => {
     const token = req.params.token;
@@ -117,4 +118,4 @@ exports.getStreams = async (req, res) => {
   //     }
   //   }
   // )
-}
+
