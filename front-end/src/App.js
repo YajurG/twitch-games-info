@@ -56,9 +56,11 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-      <Route exact path = '/' component={TopGames}/>
-      <Route exact path = '/top-streams' component={TopStreams}/>
+      <div className="App container-fluid">
+        <Header />
+        <Route exact path = '/' component={TopGames}/>
+        <Route exact path = '/top-streams' component={TopStreams}/>
+      </div>
     </Router>
     
   );

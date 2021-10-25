@@ -8,7 +8,7 @@ const Header = () => {
                 <Link to="/">Top Games</Link>
             </li>
             <li className="nav-item nav-link">
-                <Link to="/streams">Top Streams</Link>
+                <Link to="/top-streams">Top Streams</Link>
             </li>
         </nav>
     )

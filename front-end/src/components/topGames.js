@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 const TopGames = () => {
     const [games, setGames] = useState([]);
@@ -7,29 +8,42 @@ const TopGames = () => {
     const [isLoading, setIsLoading] = useState();
 
     useEffect(() => {
-        setIsLoading(true);
-        const getTopGames = async () => {
+        const getData = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/topGames", {params: {token: twitchToken}})
-                console.log(res.data)
+                let token = await localStorage.getItem("twitchToken");
+                setTwitchToken(token);
+                const res = await axios.get("http://localhost:8080/api/topGames", {params: {token: JSON.parse(token)}});
+                setGames(res.data.data);
+                console.log("games: " + games)
+                console.log("token: " + token)
             } catch (err) {
                 console.log(err);
             }
-            
         }
-        const getToken = async () => {
-            let token = await localStorage.getItem("twitchToken");
-            await setTwitchToken(token)
-            console.log(twitchToken)
-        }
-        getToken();
-        getTopGames();
-    })
+        getData();
+    }, [])
     
     
 
     return (
-        <div>component for top games</div>
+        <div>
+            <h1>Top Games on Twitch</h1>
+            <div className="row">
+            {games.map(game => {
+                <div className='col-lg-4 col-md-6 col-sm-12 mt-5'>
+                <div className='card'>
+                    <img className='card-image-top' src={game.box_art_url} />
+                    <div className="card-body">
+                        <h5 className="card-title">{game.name}</h5>
+                        <button className="btn btn-success">
+                        </button>
+                    </div> 
+                </div>
+            </div>
+            })}
+            </div>
+        </div>
+        //<div> what the fuck</div>
     )
 }
 
