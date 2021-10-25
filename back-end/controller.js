@@ -2,28 +2,23 @@ const { default: axios } = require("axios");
 const Index = require("./index.js");
 const config = require("./config/api.config")
 
-exports.getGames = (req, res) => {
+exports.getGames = async (req, res) => {
 
-  let token = Index.getAccessToken(process.env.GET_TOKEN,
-    (err, result) => {
-      if (err){
-        res.status(500).send({
-          message: "Some error occurred while retrieving token."
-        });
-      } else {
-        let games = Index.getGamesInfo(process.env.GET_GAMES, result.token,
-          (err, result) => {
-            if (err){
-              res.status(500).send({
-                message: "Some error occurred while retrieving games."
-              });
-            } else {
-                res.send(result);
-            }
-          }
-        )
-      }
-    })
+  const token = req.query.token;
+  const url = "https://api.twitch.tv/helix/games/top"
+  const headers = {
+    'Client-ID': config.client_id,
+    "Authorization": "Bearer " + token
+  }
+  
+  try {
+    let response = await axios.get(url, {headers: headers});
+    console.log(response);
+    res.send({data: response.data.data});
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({error: err});
+  }
 }
 exports.getToken = async (req, res) => {
   const options = {
@@ -41,17 +36,6 @@ exports.getToken = async (req, res) => {
     console.log(err.message)
     res.status(500).send({error: err})
   }
-  
-  /*let token = Index.getAccessToken(process.env.GET_TOKEN,
-    (err, result) => {
-      if (err){
-        res.status(500).send({
-          message: "Some error occurred while retrieving a token."
-        });
-      } else {
-          res.send(result);
-      }
-    })*/
 }
 
 // returns most active streams across all games
@@ -76,46 +60,25 @@ exports.getStreams = async (req, res) => {
   }
 }
   
-  exports.getStreamsByGame = async (req, res) => {
-    const token = req.params.token;
-    const id = req.param.gameID;
-    const count = req.params.count ? req.params.count: 10;
-    const url = "https://api.twitch.tv/helix/streams";
-    const headers = {
-      'Client-ID': config.client_id,
-      "Authorization": "Bearer " + token
-    }
-    const options = {
-      first: count,
-      game_id: id
-    }
-    
-    try {
-      const streams = await axios.get(url, {headers: headers, params: options});
-      res.send(streams);
-    } catch (err) {
-      res.status(500).send({error: err});
-    }
+exports.getStreamsByGame = async (req, res) => {
+  const token = req.params.token;
+  const id = req.param.gameID;
+  const count = req.params.count ? req.params.count: 10;
+  const url = "https://api.twitch.tv/helix/streams";
+  const headers = {
+    'Client-ID': config.client_id,
+    "Authorization": "Bearer " + token
   }
-  // let token  = Index.getAccessToken(process.env.GET_TOKEN,
-  //   (err, result) => {
-  //     if (err){
-  //       res.status(500).send({
-  //         message: "Some error occurred while retrieving token."
-  //       });
-  //     } else {
-  //       let streams = Index.getStreams(process.env.GET_STREAMS, req.params.gameId, result.token, req.params.numOfStreams,
-  //         (err, result) => {
-  //           if (err){
-  //             res.status(500).send({
-  //               message: "Some error occurred while retrieving streams."
-  //             });
-  //           } else {
-  //             res.send(result);
-  //           }
-  //         }
-  //       )
-  //     }
-  //   }
-  // )
+  const options = {
+    first: count,
+    game_id: id
+  }
+  
+  try {
+    const streams = await axios.get(url, {headers: headers, params: options});
+    res.send(streams);
+  } catch (err) {
+    res.status(500).send({error: err});
+  }
+} 
 

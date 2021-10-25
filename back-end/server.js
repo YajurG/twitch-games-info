@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 
 app.post("/api/token", data.getToken)
 
-app.get("/games", data.getGames)
+app.get("/api/topGames", data.getGames)
 
 app.get("/streams/:gameId/:numOfStreams", data.getStreams)
 
