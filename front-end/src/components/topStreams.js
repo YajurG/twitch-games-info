@@ -23,7 +23,7 @@ const TopStreams = () => {
             });
             let gameUrl = "http://localhost:8080/api/gamesById";
             const queryParams = {
-                token: token
+                token: JSON.parse(token)
             }
             let id = []
             dataArray.map(stream => {
@@ -32,6 +32,7 @@ const TopStreams = () => {
                 }
             })
             queryParams.id = JSON.stringify(id);
+            console.log(queryParams);
             let gameNameData = await axios.get(gameUrl, {params: queryParams});
             let games = gameNameData.data.data;
             const final = dataArray.map(stream => {

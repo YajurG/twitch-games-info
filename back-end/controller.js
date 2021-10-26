@@ -88,7 +88,7 @@ exports.getStreamsByGame = async (req, res) => {
 } 
 
 exports.getGameByID = async (req, res) => {
-  const token = JSON.parse(req.query.token);
+  const token = req.query.token;
   const ids = JSON.parse(req.query.id);
   //console.log("ID: " + ids)
   const url = "https://api.twitch.tv/helix/games?";
