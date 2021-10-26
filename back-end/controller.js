@@ -41,10 +41,11 @@ exports.getToken = async (req, res) => {
 // returns most active streams across all games
 exports.getStreams = async (req, res) => {
   const token = req.query.token;
+  const count = req.query.count ? req.query.count: 20;
   if (req.query.count > 100) {
     res.status(500).send({message: "Error. Cannot request more than 100 streams."})
   }
-  const count = req.query.count ? req.query.count: 10;
+  
   const url = "https://api.twitch.tv/helix/streams";
   const headers = {
     'Client-ID': config.client_id,
@@ -56,7 +57,8 @@ exports.getStreams = async (req, res) => {
 
   try {
     const streams = await axios.get(url, {headers: headers, params: options});
-    res.send(streams)
+    console.log(streams.data)
+    res.send({data: streams.data.data})
   } catch (err) {
     console.log(err.message);
     res.status(500).send({error: err});
@@ -85,3 +87,13 @@ exports.getStreamsByGame = async (req, res) => {
   }
 } 
 
+exports.getGameByID = async (req, res) => {
+  const token = req.params.token;
+  const id = req.param.gameID;
+  const url = "https://api.twitch.tv/helix/streams";
+  const headers = {
+    'Client-ID': config.client_id,
+    "Authorization": "Bearer " + token
+  }
+  // make api call here
+}
