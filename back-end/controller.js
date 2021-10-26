@@ -57,7 +57,7 @@ exports.getStreams = async (req, res) => {
 
   try {
     const streams = await axios.get(url, {headers: headers, params: options});
-    console.log(streams.data)
+    //console.log(streams.data)
     res.send({data: streams.data.data})
   } catch (err) {
     console.log(err.message);
@@ -74,7 +74,7 @@ exports.getStreamsByGame = async (req, res) => {
     'Client-ID': config.client_id,
     "Authorization": "Bearer " + token
   }
-  const options = {
+  const options = { 
     first: count,
     game_id: id
   }
@@ -88,12 +88,28 @@ exports.getStreamsByGame = async (req, res) => {
 } 
 
 exports.getGameByID = async (req, res) => {
-  const token = req.params.token;
-  const id = req.param.gameID;
-  const url = "https://api.twitch.tv/helix/streams";
+  const token = JSON.parse(req.query.token);
+  const ids = JSON.parse(req.query.id);
+  //console.log("ID: " + ids)
+  const url = "https://api.twitch.tv/helix/games?";
+  let queryParams = "";
+  ids.map(id => {
+    return (queryParams += `id=${id}&`);
+  })
+  const finalURL = url + queryParams;
+  console.log(finalURL);
   const headers = {
     'Client-ID': config.client_id,
     "Authorization": "Bearer " + token
   }
-  // make api call here
+
+  try {
+    const response = await axios.get(finalURL, {headers: headers});
+    gameData = response.data.data;
+    console.log(gameData)
+    res.send({data: gameData});
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).send({error: err.message})
+  }
 }

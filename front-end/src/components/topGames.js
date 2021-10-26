@@ -23,7 +23,7 @@ const TopGames = () => {
                 return game;
             });
             setGames(final);
-            if (games != []){
+            if (games !== []){
                 setIsLoading(false)
             }
             console.log(games)
