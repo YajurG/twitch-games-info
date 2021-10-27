@@ -30,6 +30,7 @@ exports.getToken = async (req, res) => {
     let response = await axios.post('https://id.twitch.tv/oauth2/token', {}, {params: options});
     let access_token = {token: response.data.access_token,
                         expires_in: response.data.expires_in}
+    console.log(access_token);
     res.send(access_token)
 
   } catch (err) {

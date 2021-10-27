@@ -7,10 +7,12 @@ const TopGames = () => {
     const [games, setGames] = useState([]);
     const [twitchToken, setTwitchToken] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [validToken, setValidToken] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             let token = await localStorage.getItem("twitchToken");
+            console.log(token)
             setTwitchToken(token)
             const res = await axios.get("http://localhost:8080/api/topGames", {params: {token: JSON.parse(token)}});
             console.log(res.data)
