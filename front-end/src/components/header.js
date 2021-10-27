@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <nav className="navbar justify-content-center">
+             <li className="nav-item nav-link">
+                <Link to="/">Home</Link>
+            </li>
             <li className="nav-item nav-link">
-                <Link to="/">Top Games</Link>
+                <Link to="/top-games">Top Games</Link>
             </li>
             <li className="nav-item nav-link">
                 <Link to="/top-streams">Top Streams</Link>

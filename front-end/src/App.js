@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import TopGames from './components/topGames';
 import TopStreams from './components/topStreams';
 import Header from './components/header';
+import Home from './components/home';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 
@@ -58,7 +59,8 @@ const App = () => {
     <Router>
       <div className="App container-fluid">
         <Header />
-        <Route exact path = '/' component={TopGames}/>
+        <Route exact path = '/' component={Home} />
+        <Route exact path = '/top-games' component={TopGames}/>
         <Route exact path = '/top-streams' component={TopStreams}/>
       </div>
     </Router>
