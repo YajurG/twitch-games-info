@@ -7,9 +7,13 @@ const Home = () => {
 
     useEffect(() => {
         const getToken = async () => {
-            let tokenData = await axios.post("http://localhost:8080/api/token");
-            let token = tokenData.data.token;
-            await localStorage.setItem("twitchToken", JSON.stringify(token))
+            //localStorage.clear();
+            let token = await localStorage.getItem("twitchToken")
+            if (!token) {
+                let tokenData = await axios.post("http://localhost:8080/api/token");
+                token = tokenData.data.token;
+                await localStorage.setItem("twitchToken", JSON.stringify(token))
+            }
             console.log(token)
             console.log(localStorage);
             setIsLoading(false)
