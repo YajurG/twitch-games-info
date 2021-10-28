@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import TopGames from './components/topGames';
 import TopStreams from './components/topStreams';
+import GameTopStreams from './components/gameTopStreams';
 import Header from './components/header';
 import Home from './components/home';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -62,6 +63,7 @@ const App = () => {
         <Route exact path = '/' component={Home} />
         <Route exact path = '/top-games' component={TopGames}/>
         <Route exact path = '/top-streams' component={TopStreams}/>
+        <Route exact path = '/game/:id' component={GameTopStreams}/>
       </div>
     </Router>
     
