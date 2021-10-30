@@ -23,6 +23,8 @@ app.get("/api/topStreams", data.getStreams)
 
 app.get("/api/gamesById", data.getGameByID)
 
+app.get("/api/game/streams", data.getStreamsByGame)
+
 app.listen(8080, () => {
   console.log("Server running on port 8080");
 })
