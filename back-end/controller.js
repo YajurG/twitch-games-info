@@ -68,8 +68,9 @@ exports.getStreams = async (req, res) => {
   
 exports.getStreamsByGame = async (req, res) => {
   const token = req.query.token;
-  const id = req.query.gameID;
-  const count = req.query.count ? req.query.count: 10;
+  const id = req.query.id;
+  const count = req.query.count ? req.query.count: 25;
+  console.log(req.query);
   const url = "https://api.twitch.tv/helix/streams";
   const headers = {
     'Client-ID': config.client_id,
@@ -79,12 +80,15 @@ exports.getStreamsByGame = async (req, res) => {
     first: count,
     game_id: id
   }
+  console.log(options)
   
   try {
     const streams = await axios.get(url, {headers: headers, params: options});
-    res.send(streams);
+    console.log(streams.data)
+    res.send({data: streams.data.data});
   } catch (err) {
-    res.status(500).send({error: err});
+    console.log(err)
+    res.status(500).send({error: err.message});
   }
 } 
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const GameTopStreams = ({match, location}) => {
     const [streams, setStreams] = useState([]);
@@ -6,15 +7,19 @@ const GameTopStreams = ({match, location}) => {
 
     useEffect(() => {
         const getData = async () => {
-            let token = await localStorage.getItem("twitchToken");
+            let token = JSON.parse(await localStorage.getItem("twitchToken"));
             let queryParams = {
-                token: JSON.parse(token),
-                // add rest of query params
+                token: token,
+                id: location.state.gameID
             }
-            const res = await axios.get("http://localhost:8080/api/game/streams", {params: {token: JSON.parse(token)}});
-            console.log
+            //console.log(queryParams);
+            const res = await axios.get("http://localhost:8080/api/game/streams", {params: queryParams});
+            let streamData = res.data.data;
+            setStreams(streamData);
+            console.log(streamData);
         }
-    })
+        getData();
+    }, [])
 
     return (
         <div>
