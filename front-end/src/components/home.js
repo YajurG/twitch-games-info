@@ -28,8 +28,11 @@ const Home = () => {
     ) : (
         <div>
             <h1>Home</h1>
+            <div className="row" style={{padding: "10px"}}>
+                <h3>Welcome to Twitch Assistant!</h3>
+            </div>
             <div className="row">
-                <h3>Click a link above!</h3>
+                <b>Click one of the links above</b>
             </div>
         </div>
     )

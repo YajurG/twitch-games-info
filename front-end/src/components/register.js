@@ -2,9 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./login.css"
 
-const Login = () => {
+const Register = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -17,10 +16,10 @@ const Login = () => {
     async function onSubmit() {
         console.log("this is the submit method")
     }
-
+    
     return (
         <div>
-            <h3>Login</h3>
+            <h3>Register</h3>
             <div style={{textAlign: "left", marginLeft: "10px", marginBottom: "10px"}}>
                 <Form>
                     <Form.Group className="mb-3">
@@ -33,7 +32,7 @@ const Login = () => {
                         </Form.Text>
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Create Account
                     </Button>
                 </Form>
             </div>
@@ -41,4 +40,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;

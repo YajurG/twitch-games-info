@@ -8,6 +8,8 @@ import TopStreams from './components/topStreams';
 import GameTopStreams from './components/gameTopStreams';
 import Header from './components/header';
 import Home from './components/home';
+import Login from './components/login';
+import Register from './components/register';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 
@@ -58,9 +60,11 @@ const App = () => {
 
   return (
     <Router>
-      <div className="App container-fluid">
+      <div className="App">
         <Header />
         <Route exact path = '/' component={Home} />
+        <Route exact path = '/login' component={Login} />
+        <Route exact path = '/register' component={Register} />
         <Route exact path = '/top-games' component={TopGames}/>
         <Route exact path = '/top-streams' component={TopStreams}/>
         <Route exact path = '/game/:id' component={GameTopStreams}/>
