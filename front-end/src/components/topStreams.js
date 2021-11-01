@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import "./streams.css";
 
 const TopStreams = () => {
 
@@ -35,15 +36,8 @@ const TopStreams = () => {
             console.log(queryParams);
             let gameNameData = await axios.get(gameUrl, {params: queryParams});
             let games = gameNameData.data.data;
-            const final = dataArray.map(stream => {
-                stream.gameName = "";
-                games.map(game => {
-                    return stream.gameName = game.name;
-                })
-                return stream;
-            })
-            console.log(final);
-            setStreams(final);
+            //console.log(final);
+            setStreams(dataArray);
             
             if (streams !== []) {
                 setIsLoading(false);
@@ -64,7 +58,7 @@ const TopStreams = () => {
                       <img className="card-img-top" src={stream.thumbnail_url} />
                       <div className="card-body">
                         <h3 className="card-title">{stream.user_name}</h3>
-                        <h5 className="card-text"> {stream.gameName}</h5>
+                        <h5 className="card-text"> {stream.game_name}</h5>
                         <div className="card-text">
                           {stream.viewer_count} live viewers
                         </div>
