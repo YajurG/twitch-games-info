@@ -7,7 +7,8 @@ View most popular games on Twitch<br />
 View the most popular active streams for each game on Twitch<br />
 Create an account (APIs in progress)<br />
 Login to account (APIs in progress)<br />
+Token based authentication to verify users (IP)<br />
 
 # TODO:
-Create login + signup APIs<br />
+Create login + signup APIs <br />
 Connect login and signup UI to backend<br />
