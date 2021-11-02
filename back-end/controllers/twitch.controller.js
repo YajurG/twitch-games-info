@@ -1,6 +1,6 @@
-const { default: axios } = require("axios");
-const Index = require("./index.js");
-const config = require("./config/api.config")
+const axios = require("axios");
+const Index = require("../index.js");
+const config = require("../config/api.config")
 
 exports.getGames = async (req, res) => {
 

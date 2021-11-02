@@ -18,23 +18,23 @@ const Register = () => {
     }
     
     return (
-        <div>
-            <h3>Register</h3>
-            <div style={{textAlign: "left", marginLeft: "10px", marginBottom: "10px"}}>
-                <Form>
+        <div style={{textAlign: "left", marginLeft: "10px", marginRight: "10px"}}>
+            <h3 style={{textAlign: "center"}}>Register</h3>
+            <div>
+                <form className="form-inline">
                     <Form.Group className="mb-3">
                         <Form.Control type="username" placeholder="Enter username here"></Form.Control>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Control type="password" placeholder="Enter password here"></Form.Control>
                         <Form.Text className="text-muted">
-                            Password should be at least 8 characters
+                            <b>Password should be at least 8 characters</b>
                         </Form.Text>
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Create Account
                     </Button>
-                </Form>
+                </form>
             </div>
         </div>
     );
