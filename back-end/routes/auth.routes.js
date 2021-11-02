@@ -1,6 +1,6 @@
 const authController = require("../controllers/auth.controller");
 
 module.exports = (app) => {
-    app.post("/api/signup", authController.signUp);
-    app.post("/api/signin", authController.signIn);
+    app.post("/api/register", authController.register);
+    app.post("/api/login", authController.login);
 }

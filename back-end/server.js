@@ -32,8 +32,8 @@ app.get("/", (req, res) => {
   res.json({message: "Welcome."});
 })
 
-require("./routes/twitch.routes");
-require("./routes/auth.routes");
+require("./routes/twitch.routes")(app);
+require("./routes/auth.routes")(app);
 
 app.listen(8080, () => {
   console.log("Server running on port 8080");
