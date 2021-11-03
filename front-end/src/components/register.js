@@ -9,36 +9,31 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [invalid, setInvalid] = useState(false);
     const [error, setError] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [registered, setRegistered] = useState(false);
+    const [credentialBlank, setCredentialBlank] = useState(false);
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
     }
-
-    useEffect(() => {
-        console.log(invalid)
-        console.log(error);
-    }, [invalid, error])
     
     async function onSubmit(e) {
         e.preventDefault();
         if (username == null || password == null) {
-            console.log("")
+            setCredentialBlank(true);
+            return;
         }
-        console.log(username);
         try {
             const res = await axios.post("http://localhost:8080/api/register", {username: username, password: password});
             if (res.status == 200) {
                 setInvalid(false);
                 setError(false)
-                setLoggedIn(true);
+                setRegistered(true);
                 console.log("sign up success")
             }
         } catch (err) {
             console.log(err.message)
             if (err.message == "Request failed with status code 401"){
                 setInvalid(true);
-                //console.log(invalid)
             }
             else if (err.message == "Request failed with status code 500") {
                 setError(true)
@@ -49,7 +44,6 @@ const Register = () => {
 
     const usernameOnChange = (e) => {
         setUsername(e.target.value);
-        console.log(username);
     }
 
     const passwordOnChange = (e) => {
@@ -74,9 +68,10 @@ const Register = () => {
                         Create Account
                     </Button>
                 </form>
-                {invalid && <div style={{marginTop: "10px"}}>Username already exists. Please registering or choose another one</div>}
+                {invalid && <div style={{marginTop: "10px"}}>Username already exists. Please registering or choose another one.</div>}
                 {error && <div style={{marginTop: "10px"}}>Error occurred when registering. Please try again.</div>}
-                {loggedIn && <div style={{marginTop: "10px"}}>Successfully registered. Please log in.</div>}
+                {registered && <div style={{marginTop: "10px"}}>Successfully registered. Please <a href="/login">log in</a>.</div>}
+                {credentialBlank && <div style={{marginTop: "10px"}}>Username or password cannot be blank</div>}
             </div>
         </div>
     );

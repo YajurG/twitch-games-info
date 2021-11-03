@@ -7,7 +7,16 @@ const UserHome = () => {
     const [username, setUsername] = useState()
 
     useEffect(() => {
-        console.log("do stuff here")
+        async function getData() {
+            let loggedIn = await sessionStorage.getItem("loggedIn");
+            if (loggedIn){
+                setIsLoggedIn(true);
+            } else {
+                console.log("not logged in");
+            }
+        }
+
+        getData();
     }, [])
 
     return (isLoggedIn) ? (

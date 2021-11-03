@@ -5,10 +5,12 @@ This web application can be used to keep track of your favourite streamers, and 
 View most popular active streams on Twitch among all game categories <br />
 View most popular games on Twitch<br />
 View the most popular active streams for each game on Twitch<br />
-Create an account (APIs in progress)<br />
-Login to account (APIs in progress)<br />
-Token based authentication to verify users (IP)<br />
+Create an account<br />
+Login to account<br />
+Token based authentication to verify users<br />
+Storing user info to make sure they stay logged in<br />
 
 # TODO:
-Create login + signup APIs <br />
-Connect login and signup UI to backend<br />
+Redirect on login to user homepage <br />
+Allow users to select and store favourite game categories <br />
+Implement logout<br />
