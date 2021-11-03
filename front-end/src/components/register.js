@@ -7,12 +7,18 @@ const Register = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [valid, setValid] = useState(false);
+    const [invalid, setInvalid] = useState(false);
     const [error, setError] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
     }
+
+    useEffect(() => {
+        console.log(invalid)
+        console.log(error);
+    }, [invalid, error])
     
     async function onSubmit(e) {
         e.preventDefault();
@@ -20,8 +26,25 @@ const Register = () => {
             console.log("")
         }
         console.log(username);
-        const res = await axios.post("http://localhost:8080/api/register", {username: username, password: password});
-        console.log(res);
+        try {
+            const res = await axios.post("http://localhost:8080/api/register", {username: username, password: password});
+            if (res.status == 200) {
+                setInvalid(false);
+                setError(false)
+                setLoggedIn(true);
+                console.log("sign up success")
+            }
+        } catch (err) {
+            console.log(err.message)
+            if (err.message == "Request failed with status code 401"){
+                setInvalid(true);
+                //console.log(invalid)
+            }
+            else if (err.message == "Request failed with status code 500") {
+                setError(true)
+            }
+        }
+        
     }
 
     const usernameOnChange = (e) => {
@@ -51,6 +74,9 @@ const Register = () => {
                         Create Account
                     </Button>
                 </form>
+                {invalid && <div style={{marginTop: "10px"}}>Username already exists. Please registering or choose another one</div>}
+                {error && <div style={{marginTop: "10px"}}>Error occurred when registering. Please try again.</div>}
+                {loggedIn && <div style={{marginTop: "10px"}}>Successfully registered. Please log in.</div>}
             </div>
         </div>
     );

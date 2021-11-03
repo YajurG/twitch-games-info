@@ -38,8 +38,8 @@ module.exports = (passport) => {
             passReqToCallback: true
         }, async (req, username, password, done) => {
                 try {
-                    let user = await User.findOne({username: username});
-                    if (user) {
+                    let exists = await User.findOne({username: username});
+                    if (exists) {
                         return done(null, false, {message: "Account exists with provided username"});
                     } else {
                         const hashedPassword = await bcrypt.hash(password, 10);

@@ -11,9 +11,11 @@ exports.register = async (req, res) => {
                 console.log(err);
                 res.status(500).send({error: err.message});
             } else {
-                if (user){
+                if (!user){
+                    //console.log("first")
                     res.status(401).send({message: info.message});
                 } else {
+                    //console.log("Second")
                     res.send({message: info.message});
                 }
             }
