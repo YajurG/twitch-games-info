@@ -10,6 +10,7 @@ import Header from './components/header';
 import Home from './components/home';
 import Login from './components/login';
 import Register from './components/register';
+import UserHome from './components/userHome';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 
@@ -68,6 +69,7 @@ const App = () => {
         <Route exact path = '/top-games' component={TopGames}/>
         <Route exact path = '/top-streams' component={TopStreams}/>
         <Route exact path = '/game/:id' component={GameTopStreams}/>
+        <Route exact path = '/user-home' component={UserHome}/>
       </div>
     </Router>
     
