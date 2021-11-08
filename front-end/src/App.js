@@ -13,6 +13,8 @@ import Register from './components/register';
 import UserHome from './components/userHome';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
+import UserGames from './components/userGames';
+import UserStreams from './components/userStreams';
 
 
 const App = () => {
@@ -70,6 +72,8 @@ const App = () => {
         <Route exact path = '/top-streams' component={TopStreams}/>
         <Route exact path = '/game/:id' component={GameTopStreams}/>
         <Route exact path = '/user-home' component={UserHome}/>
+        <Route exact path = '/user-games' component={UserGames} />
+        <Route exact path = '/user-streams' component={UserStreams} />
       </div>
     </Router>
     

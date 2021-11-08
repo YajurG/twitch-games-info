@@ -33,19 +33,28 @@ const TopGames = () => {
         getData();
     },[])
     
+    const addToUserGames = async (game) => {
+        console.log(game)
+        let userGames = await JSON.parse(localStorage.getItem("userGameData"));
+        if (!userGames) {
+            userGames = [];
+        }
+        userGames.push(game);
+        await localStorage.setItem("userGameData", JSON.stringify(userGames))
+    }
     
 
     return (!isLoading) ? (
         <div>
             <h1>Top Games on Twitch</h1>
             <div className="row">
-            {games.map(game => (
+            {games.map((game, idx) => (
             <div className="col-lg-2 col-md-4 col-sm-12 mt-5">
                 <div className="card">
                 <img className="card-img-top" src={game.box_art_url} />
                 <div className="card-body">
                     <h5 className="card-title">{game.name}</h5>
-                    <button className="btn btn-success">
+                    <button className="btn btn-success" style={styles.button}>
                     <Link
                         className="link"
                         to={{
@@ -58,6 +67,9 @@ const TopGames = () => {
                         {game.name} streams{" "}
                     </Link>
                     </button>
+                    <button className="btn btn-success" style={styles.button} onClick={() => addToUserGames(game)}>
+                        Add to My Games
+                    </button>
                 </div>
                 </div>
             </div>
@@ -69,3 +81,9 @@ const TopGames = () => {
 }
 
 export default TopGames;
+
+const styles = {
+    button: {
+        margin: "5px 5px 5px 5px"
+    }
+}

@@ -7,6 +7,7 @@ const UserHome = () => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState();
+    const [redirectError, setRedirectError] = useState(false);
 
     useEffect(() => {
         async function getData() {
@@ -28,13 +29,17 @@ const UserHome = () => {
 
     const onClickMyGames = () => {
         if (isLoggedIn) {
-            history.push("/") // change to user games url
+            history.push("/user-games") // change to user games url
+        } else {
+            setRedirectError(true); // alert user of error
         }
     }
 
     const onClickMyStreams = () => {
         if (isLoggedIn) {
-            history.push("/") // change to user games url
+            history.push("/user-streams") // change to user games url
+        } else {
+            setRedirectError(true); // alert user of error
         }
     }
 
@@ -45,10 +50,11 @@ const UserHome = () => {
                 <Button variant="primary" type="submit" style={styles.button} onClick={onClickMyGames}>
                     My Games
                 </Button>
-                <Button variant="primary" type="submit" style={styles.button}>
+                <Button variant="primary" type="submit" style={styles.button} onClick={onClickMyStreams}>
                     My Streams
                 </Button>
             </div>
+            {redirectError && <div style={styles.message}>Error occurred when trying to redirect.</div>}
         </div>
     ) : (
         <div>
@@ -64,6 +70,9 @@ const styles = {
     },
     button: {
         margin: "10px 10px 10px 10px"
+    },
+    message:{
+        marginTop: "10px"
     }
 }
 
