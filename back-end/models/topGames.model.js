@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const GameSchema = require('./gameSchema')
 
-const Game = mongoose.model(
-    "Game", GameSchema
+const TopGames = mongoose.model(
+    "TopGames", GameSchema
 );
 
-module.exports = Game;
+module.exports = TopGames;
