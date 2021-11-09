@@ -8,9 +8,9 @@ View the most popular active streams for each game on Twitch<br />
 Create an account<br />
 Login to account<br />
 Token based authentication to verify users<br />
-Storing user info to make sure they stay logged in<br />
+Allow users to select and store favourite game categories <br />
 
 # TODO:
 Redirect on login to user homepage <br />
-Allow users to select and store favourite game categories <br />
 Implement logout<br />
+Add token authentication on client side<br />
