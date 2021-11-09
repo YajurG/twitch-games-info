@@ -39,7 +39,9 @@ const TopGames = () => {
         if (!userGames) {
             userGames = [];
         }
-        userGames.push(game);
+        console.log(userGames);
+        const containsGame = userGames.some((elem) => (elem.name === game.name))
+        containsGame ? console.log("game already in user game data") : userGames.push(game)
         await localStorage.setItem("userGameData", JSON.stringify(userGames))
     }
     

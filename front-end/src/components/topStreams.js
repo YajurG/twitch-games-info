@@ -48,6 +48,18 @@ const TopStreams = () => {
     getData();
     }, [])
 
+    const addToUserStreams = async (stream) => {
+      console.log(stream)
+      let userStreams = await JSON.parse(localStorage.getItem("userStreamData"));
+      if (!userStreams) {
+          userStreams = [];
+      }
+      console.log(userStreams);
+      const containsStream = userStreams.some((elem) => (elem.user_login === stream.user_login))
+      containsStream ? console.log("stream already in user game data") : userStreams.push(stream)
+      await localStorage.setItem("userStreamData", JSON.stringify(userStreams))
+  }
+
     return (!isLoading) ? (
         <div>
             <h1>Top Streams on Twitch</h1>
@@ -62,7 +74,7 @@ const TopStreams = () => {
                         <div className="card-text">
                           {stream.viewer_count} live viewers
                         </div>
-                        <button className="btn btn-success">
+                        <button className="btn btn-success" style={styles.button}>
                           <a
                             href={"https://twitch.tv/" + stream.user_name}
                             className="link"
@@ -71,6 +83,9 @@ const TopStreams = () => {
                             watch {stream.user_name}'s' stream
                           </a>
                         </button>
+                        <button className="btn btn-success" style={styles.button} onClick={() => addToUserStreams(stream)}>
+                        Add to My Streams
+                    </button>
                       </div>
                     </div>
                   </div>
@@ -78,6 +93,12 @@ const TopStreams = () => {
             </div>
         </div>
     ) : <h1>Loading</h1>
+}
+
+const styles = {
+  button: {
+      margin: "5px 5px 5px 5px"
+  }
 }
 
 export default TopStreams;

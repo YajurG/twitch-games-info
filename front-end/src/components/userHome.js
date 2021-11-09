@@ -58,7 +58,8 @@ const UserHome = () => {
         </div>
     ) : (
         <div>
-            <h3>Sorry, you are not authorized to view this page. Please login or register.</h3>
+            <h3>Sorry, you are not authorized to view this page.</h3>
+            <b>Please login or register.</b>
         </div>
     )
 }
