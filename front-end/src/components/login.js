@@ -70,7 +70,7 @@ const Login = () => {
                 </form>
                 {invalid && <div style={{marginTop: "10px"}}>Username not found.</div>}
                 {credentialBlank && <div style={{marginTop: "10px"}}>Username or password cannot be blank</div>}
-                {error && <div style={{marginTop: "10px"}}>Error occurred when registering. Please try again.</div>}
+                {error && <div style={{marginTop: "10px"}}>Error occurred when logging in. Please try again.</div>}
                 {loggedIn && <div style={{marginTop: "10px"}}>Successfully logged in.</div>}
             </div>
         </div>

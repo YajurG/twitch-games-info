@@ -51,7 +51,7 @@ const UserHome = () => {
                     My Games
                 </Button>
                 <Button variant="primary" type="submit" style={styles.button} onClick={onClickMyStreams}>
-                    My Streams
+                    My Streamers
                 </Button>
             </div>
             {redirectError && <div style={styles.message}>Error occurred when trying to redirect.</div>}

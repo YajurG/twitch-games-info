@@ -20,7 +20,7 @@ const UserStreams = () => {
 
     return (
         <div>
-            <h3>Welcome to your streams!</h3>
+            <h3>Welcome to your streamers!</h3>
             {isStreamData ? (
                 <div className="row">
                     {streams.map(stream => (
@@ -29,10 +29,6 @@ const UserStreams = () => {
                       <img className="card-img-top" src={stream.thumbnail_url} />
                       <div className="card-body">
                         <h3 className="card-title">{stream.user_name}</h3>
-                        <h5 className="card-text"> {stream.game_name}</h5>
-                        <div className="card-text">
-                          {stream.viewer_count} live viewers
-                        </div>
                         <button className="btn btn-success" style={styles.button}>
                           <a
                             href={"https://twitch.tv/" + stream.user_name}

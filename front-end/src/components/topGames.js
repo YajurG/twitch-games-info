@@ -14,7 +14,7 @@ const TopGames = () => {
             let token = await localStorage.getItem("twitchToken");
             console.log(token)
             setTwitchToken(token)
-            const res = await axios.get("http://localhost:8080/api/topGames", {params: {token: JSON.parse(token)}});
+            const res = await axios.get("http://localhost:8080/api/games/top", {params: {token: JSON.parse(token)}});
             console.log(res.data)
             let gameData = res.data.data;
             let final = gameData.map(game => {
