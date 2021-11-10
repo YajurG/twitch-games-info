@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const streamSchema = new mongoose.Schema({
-    username: {type: String, required: true},
-    game: mongoose.Schema.Types.ObjectId,
+    user_name: {type: String, required: true},
+    game_id: String,
+    game_name: String,
     thumbnail_url: String,
-    viewerCount: Number 
+    viewer_count: Number 
 })
 
 module.exports = streamSchema;

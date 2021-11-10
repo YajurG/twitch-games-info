@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 require("./routes/twitch.routes")(app);
 require("./routes/auth.routes")(app);
 require("./routes/games.routes")(app);
+require("./routes/streams.routes")(app);
 
 app.listen(8080, () => {
   console.log("Server running on port 8080");

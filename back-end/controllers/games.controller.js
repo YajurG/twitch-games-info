@@ -14,10 +14,10 @@ exports.updateTopGames = async (req, res) => {
         //console.log(response.data)
         const topGames = response.data.data;
         const newTopGames = topGames.map(({
-            id: gameID,
+            id: game_id,
             ...rest
         }) => ({
-            gameID,
+            game_id,
             ...rest
         }))
         console.log(newTopGames)
