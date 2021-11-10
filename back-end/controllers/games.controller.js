@@ -28,8 +28,21 @@ exports.updateTopGames = async (req, res) => {
         const updateResult = await TopGames.insertMany(newTopGames);
         res.send({message: "top games updated", data: updateResult});
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send({error: "error occurred"})
     }
 }
 
+exports.getTopGames = async (req, res) => {
+    try {
+        const data = await TopGames.find({});
+        if (!data.length) {
+            res.status(500).send({error: "Empty collection. No top games found"})
+        }
+        res.send({message: "top games found", data: data});
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({error: "error occurred"})
+    }
+}
